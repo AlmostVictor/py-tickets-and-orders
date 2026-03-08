@@ -100,21 +100,19 @@ class Ticket(models.Model):
 
     def clean(self) -> None:
         if not (1 <= self.row <= self.movie_session.cinema_hall.rows):
-            raise ValidationError(
-                "Expected row № in range"
-                f"(1, {self.movie_session.cinema_hall.rows}) "
-                f"but found {self.row}"
-            )
+            raise ValidationError({"row":
+                ["row number must be in available range: (1, rows): "
+                 f"(1, {self.movie_session.cinema_hall.rows})"]
+            })
         if not (1 <= self.seat <= self.movie_session.cinema_hall.seats_in_row):
-            raise ValidationError(
-                "Expected seat № in range "
-                f"(1, {self.movie_session.cinema_hall.seats_in_row}) "
-                f"but found {self.seat}"
-            )
+            raise ValidationError({"seat":
+                ["seat number must be in available range: (1, seats_in_row): "
+                 f"(1, {self.movie_session.cinema_hall.seats_in_row})"]
+            })
 
     def save(self, *args, **kwargs) -> None:
         self.full_clean()
-        super.save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class User(AbstractUser):

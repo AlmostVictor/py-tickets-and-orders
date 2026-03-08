@@ -16,12 +16,11 @@ def create_user(
         first_name=first_name,
         last_name=last_name
     )
-    created_user.save()
     return created_user
 
 
 def get_user(user_id: int) -> AbstractUser:
-    return get_user_model.objects.get(pk=user_id)
+    return get_user_model().objects.get(pk=user_id)
 
 
 def update_user(
