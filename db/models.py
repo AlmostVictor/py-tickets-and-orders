@@ -96,7 +96,7 @@ class Ticket(models.Model):
         return (
             f"Ticket: {self.movie_session.movie.title} "
             f"{self.movie_session.show_time} "
-            f"(row: {self.row}, seat:{self.seat})"
+            f"(row: {self.row}, seat: {self.seat})"
         )
 
     def clean(self) -> None:
