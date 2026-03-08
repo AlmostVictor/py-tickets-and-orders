@@ -9,12 +9,17 @@ def create_user(
         first_name: str = None,
         last_name: str = None
 ) -> AbstractUser:
+    optional_fields = {}
+    if email:
+        optional_fields["email"] = email
+    if first_name:
+        optional_fields["first_name"] = first_name
+    if last_name:
+        optional_fields["last_name"] = last_name
     created_user = get_user_model().objects.create_user(
         username=username,
         password=password,
-        email=email,
-        first_name=first_name,
-        last_name=last_name
+        **optional_fields
     )
     return created_user
 
